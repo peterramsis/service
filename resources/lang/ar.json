@@ -20,5 +20,17 @@
     "password confirmation": "اعادة كلمة السر",
     "Photo": "الصورة الشخصية",
     "Birthday": "تاريخ الميلاد",
-    "create": "اضافة"
+    "create": "اضافة",
+    "phone": "تليفون المنزل",
+    "mobile": "الموبيل",
+    "instagram": "انستجرام",
+    "twitter": "تويتر",
+    "facebook": "الفيس بوك",
+    "religion": "الديانة",
+    "sect": "الطائفة",
+    "church": "الكنيسة",
+    "link": "الرابط",
+    "edit user": "تعديل مستخدم",
+    "Real Permisssion": "الصلاحيات الحالية",
+    "search user": "بحث عن مستخدم"
 }

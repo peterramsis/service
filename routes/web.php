@@ -20,9 +20,9 @@ Route::group(['namespace' => 'Auth'], function () {
                 'uses' => 'LoginController@postLogin',
                 'as' => 'login',
             ]);
-        Route::get('/', [
+        Route::get('/login_form', [
                 'uses' => 'LoginController@getLogin',
-                'as' => '/',
+                'as' => 'login_form',
             ]);
         Route::view('/password/forget', 'auth.pass.forget')->name('forget');
         Route::post('/password/forget', 'forgetPasswordController@resetPass')->name('forget');
@@ -54,6 +54,7 @@ Route::group(['namespace' => 'Auth'], function () {
         Route::get('allRole', 'usersController@all_role')->name('allRole');
         Route::match(['get', 'post'], 'update_role/{id}', 'usersController@update_role')->name('updateRole');
         Route::get('delete_role/{id}', 'usersController@delete_role')->name('deleteRole');
+        Route::get('search', 'usersController@search')->name('search_user');
 
 
     });
@@ -78,9 +79,7 @@ Route::get('/role', function () {
         ]);
 });
 
-Route::get("home",function(){
-
-
+Route::get("/",function(){
 #dd(app()->getLocale());
  return view("home");
 })->name("home");

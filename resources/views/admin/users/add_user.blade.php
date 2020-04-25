@@ -82,6 +82,46 @@
                                 <input type="date" name="birthday" class="form-control" value="{{ old('birthday') }}">
                               </div>
 
+                              <div class="form-group">
+                                <label>{{ __("phone") }}</label>
+                                <input type="text" name="phone" class="form-control" value="{{ old('phone') }}">
+                              </div>
+
+                              <div class="form-group">
+                                <label>{{ __("mobile") }}</label>
+                                <input type="text" name="mobile" class="form-control" value="{{ old('mobile') }}">
+                              </div>
+
+                              <div class="form-group">
+                                <label>{{ __("instagram") }}</label>
+                                <input type="url" name="instagram" class="form-control" value="{{ old('instagram') }}">
+                              </div>
+                              <div class="form-group">
+                                <label>{{ __("facebook") }}</label>
+                                <input type="url" name="facebook" class="form-control" value="{{ old('facebook') }}">
+                              </div>
+                              <div class="form-group">
+                                <label>{{ __("twitter") }}</label>
+                                <input type="url" name="twitter" class="form-control" value="{{ old('twitter') }}">
+                              </div>
+                              <div class="form-group">
+                                <label>{{ __("religion") }}</label>
+                                <input type="text" name="religion" class="form-control" value="{{ old('religion') }}">
+                              </div>
+                              <div class="form-group">
+                                <label>{{ __("sect") }}</label>
+                                <input type="text" name="sect" class="form-control" value="{{ old('sect') }}">
+                              </div>
+
+                              <div class="form-group">
+                                <label>{{ __("church") }}</label>
+                                <input type="text" name="church" class="form-control" value="{{ old('church') }}">
+                              </div>
+
+
+
+
+
 
 
                             <div class="col-sm-6 pl-0">

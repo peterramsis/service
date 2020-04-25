@@ -100,6 +100,14 @@ class MigrationCartalystSentinel extends Migration
             $table->string('image');
             $table->text('permissions')->nullable();
             $table->timestamp('last_login')->nullable();
+            $table->string("phone");
+            $table->string("mobile");
+            $table->text("instagram");
+            $table->text("twitter");
+            $table->text("تويتر");
+            $table->string("religion");
+            $table->string("sect");
+            $table->string("church");
             $table->timestamps();
             $table->engine = 'InnoDB';
             $table->unique('email');

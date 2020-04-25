@@ -28,15 +28,22 @@ class usersController extends Controller
     {
         if (Sentinel::hasAccess('admin.*')) {
             if (request()->isMethod('post')) {
-                request()->validate([
-                'email' => 'required|unique:users,email,email',
-                'username' => 'required|min:4|max:18|alpha_dash|unique:users',
-                'password' => 'required|string|min:8|max:16|confirmed',
-                'name' => 'required|min:3|string',
-                'birthday' => 'required|date',
-                'image' => 'required',
 
-                ],[],[
+
+                request()->validate([
+                    'email' => 'required|unique:users,email,email',
+                    'username' => 'required|min:4|max:18|alpha_dash|unique:users',
+                    'password' => 'required|string|min:8|max:16|confirmed',
+                    'name' => 'required|min:3|string',
+                    'birthday' => 'required|date',
+                    'image' => 'required',
+                    "mobile"=>'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
+                    "instagram"=>"url",
+                    "twitter"=>'url',
+                    "facebook"=>'required|url',
+                    "religion"=>"required|string",
+                    "sect"=>"required|string",
+                    "church"=>"required|string"
 
                 ]);
                 Image::make(request()->image)->resize(800, null, function ($constraint) {
@@ -52,13 +59,29 @@ class usersController extends Controller
                  'name' => request()->name,
                  'birthday' => request()->birthday,
                  'image' => request()->image->hashName(),
+                 "phone"=>request()->phone,
+                 "mobile"=>request()->mobile,
 
-             ]);
+                 "twitter"=>request()->twitter,
+                 "facebook"=>request()->facebook,
+                 "instagram"=>request()->instagram,
+
+                 "religion"=>request()->religion,
+                 "sect"=>request()->sect,
+                 "church"=>request()->church,
+                ]);
 
                 $role = Sentinel::findRoleBySlug('user');
                 $role->users()->attach($user);
 
-                return redirect()->route('mangeUsers')->with('success', 'user Added');
+
+                if(app()->getlocale() == "ar"){
+                    return redirect()->route('mangeUsers')->with('success', 'تم الاضافة بنجاح');
+                }else{
+                    return redirect()->route('mangeUsers')->with('success', "Data has been added successfully");
+
+                }
+
             }
 
 
@@ -201,17 +224,16 @@ class usersController extends Controller
                 $perm[request()->role.'.'.'show'] = true;
                 $perm[request()->role.'.'.'edit'] = true;
                 $perm[request()->role.'.'.'delete'] = true;
-
                 $role = Sentinel::findRoleBySlug(request()->role);
-
                 Admin::upgradeUser($id, $perm);
-
                 $update = DB::table('role_users')->where('user_id', $id)->update(['role_id' => $role->id]);
-
-
             }
 
-            return redirect()->route('mangeUsers')->with('success', 'Update Successfully');
+            if(app()->getlocale() == "ar"){
+                return redirect()->route('mangeUsers')->with('success', 'تم التعديل بنجاح');
+            }else{
+                return redirect()->route('mangeUsers')->with('success', "Data has been update successfully");
+            }
         }
 
 
@@ -228,10 +250,44 @@ class usersController extends Controller
         if ($user != null) {
             $user->delete();
 
-            return redirect()->route('mangeUsers')->with('success', 'Deleted Successfully');
+            if(app()->getlocale() == "ar"){
+                return redirect()->route('mangeUsers')->with('success', 'تم المسح بنجاح');
+            }else{
+                return redirect()->route('mangeUsers')->with('success', "Data has been delete successfully");
+
+            }
         } else {
             dd('error');
         }
+    }
+
+    public function search(Request $request)
+    {
+        $this->validate(request(), [
+            'search' => 'sometimes|required|string|max:60|min:3',
+        ]);
+        $serach =$request->search;
+
+
+
+        $user = Sentinel::getUser()->Where("username",'LIKE', "%$serach%")->orWhere("name",'LIKE', "%$serach%")->orWhere("email",$serach)->paginate(10)->setPath('');
+
+        $user = $user->appends ( array (
+            'search' => $request->get('search')
+          ));
+        if($user->count() > 0){
+           return view("admin.users.search",["users" => $user])->withData($user);
+        }else{
+
+            if(app()->getlocale() == "ar"){
+                return redirect()->route('mangeUsers')->with('error', 'لايوجد مستخدم بهذه البيانات');
+            }else{
+                return redirect()->route('mangeUsers')->with('error', 'this is not found');
+
+            }
+
+        }
+
     }
 
     public function updateProfile($id)
