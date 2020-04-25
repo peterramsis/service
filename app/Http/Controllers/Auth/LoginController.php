@@ -72,6 +72,6 @@ class LoginController extends Controller
     {
         Sentinel::logout(null, true);
 
-        return redirect()->route('/')->with('success', 'Come back again whatever you can');
+        return redirect()->route('home')->with('success', 'Come back again whatever you can');
     }
 }

@@ -115,7 +115,14 @@ class usersController extends Controller
             'permissions' => $perm,
         ]);
 
-                return redirect()->route('allRole')->with('success', 'Add Role');
+
+
+                if(app()->getlocale() == "ar"){
+                    return redirect()->route('mangeUsers')->with('success', 'تم  الاضافة بنجاح');
+                }else{
+                    return redirect()->route('mangeUsers')->with('success', "Data has been delete successfully");
+
+                }
             }
 
             return view('admin.users.add_role');
@@ -146,7 +153,13 @@ class usersController extends Controller
     {
         $role = Sentinel::findRoleById($id)->delete();
 
-        return redirect()->route('allRole')->with('success', 'Delete successfully');
+
+        if(app()->getlocale() == "ar"){
+            return redirect()->route('mangeUsers')->with('success', 'تم المسح بنجاح');
+        }else{
+            return redirect()->route('mangeUsers')->with('success', "Data has been delete successfully");
+
+        }
     }
 
     public function update_role($id)

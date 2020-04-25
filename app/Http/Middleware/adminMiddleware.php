@@ -20,7 +20,7 @@ class adminMiddleware
         if (Sentinel::check() && Sentinel::getUser()->hasAnyAccess(['admin.*','User.*'])) {
             return $next($request);
         }else{
-            return redirect()->route("/");
+            return redirect()->route("home");
         }
 
         return redirect()->back()->with('error', 'Invalid permission');

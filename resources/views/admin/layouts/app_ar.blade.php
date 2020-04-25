@@ -16,6 +16,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <!-- Ionicons -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href='{{  asset("/assets/ar/css/AdminLTE.min.css") }}'>
@@ -31,6 +32,11 @@
     <![endif]-->
 
     <!-- Styles -->
+    <style>
+        body{
+            font-family: 'Cairo', sans-serif;
+        }
+    </style>
     @yield("css")
 
 </head>
@@ -40,11 +46,11 @@
 
           <header class="main-header">
             <!-- Logo -->
-            <a href="index2.html" class="logo">
+            <a href="{{ route("admin") }}" class="logo">
               <!-- mini logo for sidebar mini 50x50 pixels -->
               <span class="logo-mini">{{ __("alt") }}</span>
               <!-- logo for regular state and mobile devices -->
-              <span class="logo-lg">{{ __("admin_panal") }}</span>
+              <span class="logo-lg">{{ __("admin panal") }}</span>
             </a>
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top" role="navigation">
@@ -58,6 +64,17 @@
               <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
 
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">{{ __("language") }} <span class="caret"></span></a>
+                        <ul class="dropdown-menu " role="menu">
+                          <li class="text-right"><a class="dropdown-item" href="{{ route('changeLan','ar') }}">
+                            {{ __('arabic') }}
+                        </a></li>
+                          <li class="text-right"> <a class="dropdown-item" href="{{ route('changeLan','en') }}">
+                            {{ __('english') }}
+                        </a></li>
+                        </ul>
+                      </li>
 
                   <!-- User Account: style can be found in dropdown.less -->
                   <li class="dropdown user user-menu">
@@ -67,6 +84,7 @@
                     </a>
                     <ul class="dropdown-menu">
                       <!-- User image -->
+
                       <li class="user-header">
                         <img src="{{ asset('upload/user/').'/'.Sentinel::getUser()->image }}" class="img-circle" alt="User Image">
                         <p>
@@ -119,13 +137,27 @@
 
                 <li class="{{ request()->route()->named('mangeUsers') || request()->route()->named('allRole') == 'true' ? 'treeview active' : 'treeview' }}">
                     <a href="#">
-                      <i class="fa fa-table"></i><i class="fa fa-share"></i> <span>{{ __("users") }}</span>
+                      <i class="fa fa-users"></i> <span>{{ __("users") }}</span>
                       <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
                       <li class="{{ request()->route()->named('mangeUsers')  == 'true' ? 'active' : ''  }}"><a href="{{ route('mangeUsers') }}"><i class="{{ request()->route()->named('mangeUsers')  == 'true' ? 'fa fa-circle' : 'fa fa-circle-o'  }}" ></i> {{ __('users') }}</a></li>
                       <li class="{{ request()->route()->named('allRole')  == 'true' ? 'active' : ''  }}"><a href="{{ route('allRole') }}"><i class="{{ request()->route()->named('allRole')  == 'true' ? 'fa fa-circle' : 'fa fa-circle-o'  }}" ></i> {{ __('roles') }}</a></li>
                     </ul>
+                  </li>
+
+                  <li class="{{ request()->route()->named('question') == 'true' ? 'treeview active' : 'treeview' }}">
+                    <a href="{{ route("question") }}">
+                      <i class="fa fa-commenting"></i> <span>{{ __("question") }}</span> <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+
+                  </li>
+
+                  <li class="{{ request()->route()->named('updateSetting') == 'true' ? 'treeview active' : 'treeview' }}">
+                    <a href="{{ route("updateSetting") }}">
+                      <i class="fa fa-gears"></i> <span>{{ __("settings") }}</span> <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+
                   </li>
             </section>
             <!-- /.sidebar -->

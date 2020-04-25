@@ -105,7 +105,7 @@ Login
 
                      }else if(result.data == "user"){
 
-                         window.location.href = "home";
+                         window.location.href = "/";
 
                      }
                  },error:function(err,exp){

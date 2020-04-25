@@ -123,8 +123,8 @@
                                             </td>
 
 
-                                            <td><a href="{{ route('userUpdate', $item->id) }}"><i class="fa fa-pencil"></i></a></td>
-                                            <td><a href="{{ route('deleteUsers',$item->id) }}"><i class="fa fa-trash-o"  onclick="return confirm('Are you sure?')"></i></a></td>
+                                            <td><a href="{{ route('userUpdate', $item->id) }}" class="btn btn-warning"><i class="fa fa-pencil"></i></a></td>
+                                            <td><a href="{{ route('deleteUsers',$item->id) }}" class="btn btn-danger"><i class="fa fa-trash-o"  onclick="return confirm('Are you sure?')"></i></a></td>
                                         </tr>
                                     @endforeach
                     </table>

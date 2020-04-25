@@ -57,6 +57,20 @@ Route::group(['namespace' => 'Auth'], function () {
         Route::get('search', 'usersController@search')->name('search_user');
 
 
+        Route::group(['prefix' => 'question'], function() {
+            Route::get("/","QuestionController@index")->name("question");
+            Route::delete('del/all', 'QuestionController@multi_Delete')->name('multi_Delete_qu');
+            Route::match(['get',"post"], 'create', 'QuestionController@create')->name('addQuestion');
+            Route::match(['get', 'post'], 'update/{id}', 'QuestionController@update')->name('updateQuestion');
+        });
+
+        Route::group(['prefix' => 'setting'], function() {
+            Route::match(['get', 'post'], 'update', 'SettingController@update')->name('updateSetting');
+        });
+
+
+
+
     });
 
 
@@ -88,6 +102,6 @@ Route::get("/",function(){
 Route::get("changeLan/{lan}","changeLan@change")->name("changeLan");
 
 
-
-
-
+Route::get("test_lan",function(){
+    dd(trans("mess.peter"));
+});

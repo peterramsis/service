@@ -14,66 +14,89 @@
 @endSection
 @section("content")
 
-@section("breadcrumbs")
-<div class="breadcrumbs-area clearfix">
-    <h4 class="page-title pull-left">Users</h4>
-    <ul class="breadcrumbs pull-left">
-        <li><a href="{{ route("admin") }}">Dashboard</a></li>
-        <li><a href="{{ route("mangeUsers") }}">Users</a></li>
-        <li><span>Role</span></li>
-    </ul>
-</div>
+@section("breadcrumb")
+<section class="content-header">
+    <h1>
+      {{ __("roles") }}
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href='{{route("home")}}'><i class="fa fa-home"></i> {{ __("home") }}</a></li>
+      <li><a href='{{route("admin")}}'><i class="fa fa-dashboard"></i> {{ __("dashborad") }}</a></li>
+      <li class="active"> {{ __("roles") }}</li>
+    </ol>
+  </section>
 @endsection
 
 @include('admin.layouts.messages')
 
-<div class="card">
-    <h5 class="card-header">
-             <a href="{{ route('add_role') }}" class="btn btn-primary">Create Roles</a>
-    </h5>
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class="table">
-                <thead>
-                    <tr>
+<div class="box">
+    <div class="box-header with-border">
+      <h3 class="box-title">{{ __('users') }}</h3>
+      <div class="box-tools pull-right">
+        <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+          <i class="fa fa-minus"></i></button>
+        <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="" data-original-title="Remove">
+          <i class="fa fa-times"></i></button>
+      </div>
+    </div>
+    <div class="box-body" style="">
+        <div class="card">
+            <h5 class="card-header">
+                <a href="{{ route('add_role') }}" class="btn btn-primary">{{ __("create role") }}</a>
+            </h5>
+
+
+
+            <div class="card-body">
+
+                <div class="box-body table-responsive no-padding">
+                    <table class="table table-hover text-center">
+                      <tbody><tr>
                         <th scope="col">#</th>
-                        <th scope="col">Name</th>
+
+                        <th scope="col">{{ __("name permission") }}</th>
                         <th scope="col">Slug</th>
-                        <th scope="col">Permission</th>
-                        <th scope="col">update</th>
-                        <th scope="col">delete</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
+                        <th scope="col">{{ __("permission") }}</th>
 
-                            @foreach ($roles as $item)
+                        <th scope="col">{{ __("delete") }}</th>
 
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->name }}</td>
-                                <td>{{ $item->slug }}</td>
-                                <td>
-                                    @foreach ($item->permissions as $key => $value)
-                                        @if ($value == 1)
-                                            {{ $key."=>". "true" }}
-                                            @else
-                                            {{ $key."=>". "false" }}
-                                        @endif
-                                    @endforeach
-                                </td>
-                                <td><a href="{{ route('updateRole', $item->id) }}" class="btn btn-warning"><i class="fas fa-edit"></i></a></td>
-                                <td><a href="{{ route('deleteRole', $item->id) }}" class="btn btn-danger"><i class="far fa-trash-alt"  onclick="return confirm('Are you sure?')"></i></a></td>
+                        @foreach ($roles as $item)
 
-                            </tr>
-                        @endforeach
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $item->name }}</td>
+                            <td>{{ $item->slug }}</td>
+                            <td>
+                                @foreach ($item->permissions as $key => $value)
+                                    @if ($value == 1)
+                                        {{ $key."=>". "true" }}
+                                        @else
+                                        {{ $key."=>". "false" }}
+                                    @endif
+                                @endforeach
+                            </td>
 
-                    </tr>
+                            <td><a href="{{ route('deleteRole', $item->id) }}" class="btn btn-danger"><i class="fa fa-trash-o"  onclick="return confirm('Are you sure?')"></i></a></td>
 
-                </tbody>
-            </table>
+                        </tr>
+                    @endforeach
 
+                    </tbody>
+
+
+                </table>
+                  </div>
+
+            </div>
         </div>
     </div>
-</div>
+    <!-- /.box-body -->
+    <div class="box-footer" style="">
+
+    </div>
+    <!-- /.box-footer-->
+  </div>
+
+
+
 @endsection
